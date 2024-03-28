@@ -20,7 +20,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-
+      - name: Delete node_modules folder and package-lock.json file
+        run: npm cache clean -force
       - name: npm install, build, and test
         run: |
           npm install
