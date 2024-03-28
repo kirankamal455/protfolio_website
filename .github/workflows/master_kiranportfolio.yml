@@ -14,13 +14,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          cache: 'npm'
 
       - name: npm install, build, and test
         run: |
@@ -43,7 +42,7 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -52,12 +51,12 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
+      
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'kiranportfolio'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3F6F85C1855F42F78B5412179CA71570 }}
           package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F5248CCD72674E44ABF1381BB28C4176 }}
